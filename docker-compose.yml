@@ -10,6 +10,14 @@ services:
     volumes:
       - .:/usr/src/app
     command: air ./cmd/main.go -b 0.0.0.0
+  # frontend:
+  #   image: node:18
+  #   volumes:
+  #     - ./client:/app
+  #   working_dir: /app
+  #   command: sh -c "npm i && npm install -g npm@9.5.1 && npm run serve"
+  #   ports:
+  #     - 8081:8080
   db:
     image: postgres:alpine
     environment:

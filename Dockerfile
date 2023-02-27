@@ -4,4 +4,9 @@ WORKDIR /usr/src/app
 
 RUN go install github.com/cosmtrek/air@latest
 COPY . .
+
+RUN go get github.com/gofiber/fiber/v2
+RUN go get gorm.io/gorm
+RUN go get gorm.io/driver/postgres
+
 RUN go mod tidy

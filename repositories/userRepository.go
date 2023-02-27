@@ -40,7 +40,7 @@ func UpdateUser( c *fiber.Ctx) error {
 func DeleteUser( c *fiber.Ctx) error {
     result := database.DB.Db.Delete(&models.User{}, c.Params("id"))
         if result.RowsAffected != 0 {
-            return c.Status(200).SendStatus(200)
+            return c.SendStatus(200)
         }
         return c.SendStatus(204)
 }
