@@ -18,20 +18,15 @@ func AddUser(c *fiber.Ctx) error {
         Name  string `validate:"required"`
         Age int `validate:"required,number"`
     }{}
-    var errors []*IError
+
     c.BodyParser(&test)
 
     err := Validator.Struct(test)
+
     if err != nil {
-        for _, err := range err.(validator.ValidationErrors) {
-            var el IError
-            el.Field = err.Field()
-            el.Tag = err.Tag()
-            el.Value = err.Param()
-            errors = append(errors, &el)
-        }
-        return c.Status(fiber.StatusBadRequest).JSON(errors)
+        return c.Status(fiber.StatusBadRequest).JSON(validate(err))
     }
+
     return c.Next()
 }
 
@@ -41,20 +36,27 @@ func EditUser(c *fiber.Ctx) error {
         Name  string 
         Age int 
     }{}
-    var errors []*IError
     c.BodyParser(&test)
 
     err := Validator.Struct(test)
+
     if err != nil {
-        for _, err := range err.(validator.ValidationErrors) {
-            var el IError
-            el.Field = err.Field()
-            el.Tag = err.Tag()
-            el.Value = err.Param()
-            errors = append(errors, &el)
-        }
-        return c.Status(fiber.StatusBadRequest).JSON(errors)
+        return c.Status(fiber.StatusBadRequest).JSON(validate(err))
     }
 
     return c.Next()
+}
+
+
+func validate (err error ) []*IError {
+    var errors []*IError
+    for _, err := range err.(validator.ValidationErrors) {
+        var el IError
+        el.Field = err.Field()
+        el.Tag = err.Tag()
+        el.Value = err.Param()
+        errors = append(errors, &el)
+    }
+
+    return errors
 }

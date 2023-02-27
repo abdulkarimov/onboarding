@@ -12,7 +12,6 @@ func GetUsers(c *fiber.Ctx) error {
 
 func AddUser(c *fiber.Ctx) error {
 	return repositories.AddUser(c)
-   
 }
 
 func UpdateUser( c *fiber.Ctx) error {

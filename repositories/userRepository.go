@@ -34,6 +34,7 @@ func UpdateUser( c *fiber.Ctx) error {
     if result.RowsAffected != 0 {
         return c.Status(200).JSON(oldUser)
     }
+    
     return c.SendStatus(204)
 }
 
