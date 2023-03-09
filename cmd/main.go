@@ -2,13 +2,16 @@ package main
 
 import (
 	"github.com/abdulkarimov/onboarding/database"
-	"github.com/abdulkarimov/onboarding/repositories"
+	"github.com/abdulkarimov/onboarding/pkg/telegram"
 	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
+	"os"
 )
 
 func main() {
+	godotenv.Load(".env")
 	database.ConnectDb()
-	repositories.NewBot("6044484605:AAHCjCnvgcmReAG1rImUqGc0tQot1eWfs3o")
+	notify.New(os.Getenv("TELEGRAM_BOT_TOKEN"))
 
 	app := fiber.New()
 

@@ -1,16 +1,16 @@
 package services
 
 import (
+	"github.com/abdulkarimov/onboarding/database"
 	"github.com/abdulkarimov/onboarding/models"
-	"github.com/abdulkarimov/onboarding/repositories"
+	"github.com/abdulkarimov/onboarding/pkg/generator"
+	notify "github.com/abdulkarimov/onboarding/pkg/telegram"
 	"github.com/gofiber/fiber/v2"
 	gf "github.com/shareed2k/goth_fiber"
-	"log"
+	"os"
 )
 
 const state = "randomstate"
-
-var VerifyUser string
 
 func Login(c *fiber.Ctx) error {
 	if gothUser, err := gf.CompleteUserAuth(c); err == nil {
@@ -31,10 +31,11 @@ func Callback(c *fiber.Ctx) error {
 		Email:       user.Email,
 		AccessToken: user.AccessToken,
 		IsVerified:  false,
-		VerifyToken: repositories.RandStringBytes(32),
+		VerifyToken: generator.RandStringBytes(32),
 	}
-	log.Println(u)
+	notify.Notify.SendNotify(u.Email, os.Getenv("URL")+"/auth/user/verify?token="+u.VerifyToken)
 	c.JSON(u)
+	database.DB.Db.Create(u)
 	return nil
 }
 
@@ -45,9 +46,11 @@ func Logout(c *fiber.Ctx) error {
 }
 
 func Verify(c *fiber.Ctx) error {
-	token := c.Query("vKey")
-	if token == VerifyUser {
+	token := c.Query("token")
+	var u models.User
+	database.DB.Db.Model(models.User{VerifyToken: token}).First(&u)
+	u.IsVerified = true
 
-	}
+	c.JSON(u)
 	return nil
 }
