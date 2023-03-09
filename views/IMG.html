@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body style="margin-top: 8%; background-color: grey;">
+    <!-- Bootstrap 4 -->
+    <div id="carousel" class="carousel slide">
+        <!-- Индикаторы -->
+        <ol class="carousel-indicators">
+            <li data-target="#" data-slide-to="0" class="active"></li>
+            <li data-target="#" data-slide-to="1"></li>
+            <li data-target="#" data-slide-to="2"></li>
+            <li data-target="#" data-slide-to="3"></li>
+            <li data-target="#" data-slide-to="4"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="img-fluid" src="https://i.pinimg.com/564x/d7/54/b4/d754b4e13ed75bfbb69769cf336b772c.jpg"
+                    alt="...">
+            </div>
+            <div class="carousel-item">
+                <img class="img-fluid" src="https://i.pinimg.com/564x/59/e7/f4/59e7f467170331def1d6f9f13202455e.jpg"
+                    alt="...">
+            </div>
+            <div class="carousel-item">
+                <img class="img-fluid" src="https://i.pinimg.com/564x/4f/08/e1/4f08e19abad029ad0e1949eed88f51b0.jpg"
+                    alt="...">
+            </div>
+            <div class="carousel-item" id="last">
+                <img class="img-fluid" src="https://i.pinimg.com/564x/b7/44/bc/b744bc8f52a4187052b6fe6c8a2a4e9a.jpg"
+                    alt="...">
+            </div>
+            <div class="carousel-item">
+                <img class="img-fluid" src="https://i.pinimg.com/564x/6e/d6/0d/6ed60d3b36c272bf1bdd992a88a500e3.jpg"
+                    alt="...">
+            </div>
+        </div>
+        <!-- Элементы управления -->
+        <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev" onclick="prev()">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Предыдущий</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel" role="button" data-slide="next" id="next" onclick="next()">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Следующий</span>
+        </a>
+
+        <a class="carousel-control-next" href="/api/home" role="button" data-slide="next" id="next2" onclick="next()"
+            style="display:none;">next
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <!-- <span class="sr-only"></span> -->
+        </a>
+    </div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+<script>
+    function next() {
+        if ($('#last').hasClass('active')) {
+            $('#next').hide()
+            $('#next2').show()
+        }
+    }
+
+    function prev() {
+        if (!$('#last').hasClass('active')) {
+            $('#next').show()
+            $('#next2').hide()
+        }
+    }
+</script>
+<style>
+    .carousel-item {
+        left: 31%;
+    }
+</style>
+
+</html>

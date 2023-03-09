@@ -5,10 +5,10 @@ import (
     "log"
     "os"
 
-    "github.com/abdulkarimov/onboarding/models"
+    // "github.com/abdulkarimov/onboarding/models"
     "gorm.io/driver/postgres"
     "gorm.io/gorm"
-    "gorm.io/gorm/logger"
+    // "gorm.io/gorm/logger"
 )
 
 type Dbinstance struct {
@@ -26,7 +26,7 @@ func ConnectDb() {
     )
 
     db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
-        Logger: logger.Default.LogMode(logger.Info),
+        // Logger: logger.Default.LogMode(logger.Info),
     })
 
     if err != nil {
@@ -34,11 +34,12 @@ func ConnectDb() {
         os.Exit(1)
     }
 
-    log.Println("connected")
-    db.Logger = logger.Default.LogMode(logger.Info)
+    // log.Println("connected")
+    // db.Logger = logger.Default.LogMode(logger.Info)
 
-    log.Println("running migrations")
-    db.AutoMigrate(&models.User{})
+    // log.Println("running migrations")
+    // db.AutoMigrate(&models.User{})
+    // db.AutoMigrate(&models.Status{})
 
 	DB = Dbinstance{
         Db: db,
