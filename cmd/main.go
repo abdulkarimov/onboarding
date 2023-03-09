@@ -1,16 +1,18 @@
-
 package main
 
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/abdulkarimov/onboarding/database"
+	"github.com/abdulkarimov/onboarding/database"
+	"github.com/abdulkarimov/onboarding/repositories"
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-    database.ConnectDb()
-    app := fiber.New()
+	database.ConnectDb()
+	repositories.NewBot("6044484605:AAHCjCnvgcmReAG1rImUqGc0tQot1eWfs3o")
 
-    setupRoutes(app)
+	app := fiber.New()
 
-    app.Listen(":3000")
+	setupRoutes(app)
+
+	app.Listen(":3000")
 }

@@ -3,8 +3,11 @@ package models
 import "gorm.io/gorm"
 
 type User struct {
-    gorm.Model
-    Name string 
-    Age int
+	gorm.Model
+	Name        string
+	Email       string
+	AccessToken string
 
+	IsVerified  bool
+	VerifyToken string
 }
