@@ -9,9 +9,9 @@ import (
 func setupRoutes(app *fiber.App) {
     api := app.Group("/api")  
 
+    //user
     api.Get("/getUsers", services.GetUsers)
     api.Post("/addUser",validations.AddUser, services.AddUser)
     api.Post("/updateUserById/:id",validations.EditUser, services.UpdateUser)
     api.Post("/deleteUserById/:id", services.DeleteUser)
-
 }
