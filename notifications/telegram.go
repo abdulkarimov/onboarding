@@ -17,5 +17,5 @@ func SendNotifyTelegram(userEmail string, link string) {
 	if err != nil {
 		log.Panic(err)
 	}
-	bot.Send(tgbotapi.NewMessage(user_id, "Новый пользователь ожидает подтверждение регистрации!\n "+userEmail+"\n"+link))
+	bot.Send(tgbotapi.NewMessage(user_id, "👨🏻‍💻Новый пользователь ожидает подтверждение регистрации!\n"+userEmail+"\n"+link))
 }
