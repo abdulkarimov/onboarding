@@ -6,7 +6,6 @@ require (
 	github.com/go-playground/validator/v10 v10.11.2
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/gofiber/fiber/v2 v2.42.0
-	github.com/gofiber/storage/sqlite3 v1.3.4
 	github.com/joho/godotenv v1.5.1
 	github.com/markbates/goth v1.76.1
 	github.com/shareed2k/goth_fiber v0.2.9

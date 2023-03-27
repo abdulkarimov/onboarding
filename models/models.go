@@ -32,6 +32,7 @@ type User struct {
 	Schedule      string
 	StatusID      uint
 	Status        Status
+	Verified      bool
 }
 
 type Project struct {

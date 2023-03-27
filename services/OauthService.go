@@ -1,13 +1,14 @@
 package services
 
 import (
+	"fmt"
 	"github.com/abdulkarimov/onboarding/database"
 	"github.com/abdulkarimov/onboarding/models"
 	notify "github.com/abdulkarimov/onboarding/pkg/telegram"
+	"github.com/abdulkarimov/onboarding/repositories"
 	"github.com/gofiber/fiber/v2"
 	gf "github.com/shareed2k/goth_fiber"
 	"os"
-	"strconv"
 )
 
 const state = "randomstate"
@@ -21,24 +22,20 @@ func Callback(c *fiber.Ctx) error {
 	if err != nil {
 		return err
 	}
-
-	userId, err := strconv.Atoi(user.UserID)
 	u := models.User{
 		Contacts: models.Contacts{Email: user.Email},
 		Name:     user.Name,
 		Img:      user.AvatarURL,
 		Info:     user.Description,
-		HashID:   uint(userId),
 	}
 
-	var du models.User
-	database.DB.Db.Find(&du, &models.User{HashID: uint(userId)})
+	var du = repositories.FindPreloadUser("Contacts", fmt.Sprintf("Contacts.Email = '%s'", user.Email))
 
-	if du.HashID != u.HashID {
+	if du.Contacts.Email != user.Email {
 		database.DB.Db.Create(&u)
-		notify.Notify.SendNotify(u.Contacts.Email, os.Getenv("URL")+"/auth/user/verify?token="+strconv.Itoa(int(u.HashID)))
-	} else if du.StatusID == 1 {
-		notify.Notify.SendNotify(u.Contacts.Email, os.Getenv("URL")+"/auth/user/verify?token="+strconv.Itoa(int(u.HashID)))
+		notify.Notify.SendTelegram(u.Contacts.Email, os.Getenv("URL")+"/auth/user/verify?token="+u.Contacts.Email)
+	} else if !du.Verified {
+		notify.Notify.SendTelegram(u.Contacts.Email, os.Getenv("URL")+"/auth/user/verify?token="+du.Contacts.Email)
 	}
 
 	c.JSON(du)
@@ -58,12 +55,10 @@ func Logout(c *fiber.Ctx) error {
 }
 
 func Verify(c *fiber.Ctx) error {
-	token, err := strconv.Atoi(c.Query("token"))
-	if err != nil {
-		return err
-	}
-	var u models.User
-	database.DB.Db.Find(&u, &models.User{HashID: uint(token)}).Update("StatusID", 1)
-	c.JSON(map[int]uint{1: uint(token), 2: u.HashID})
+	uemail := c.Query("token")
+	u := repositories.FindPreloadUser("Contacts", fmt.Sprintf("Contacts.Email = '%s'", uemail))
+	repositories.UpdateColumnUser("Verified", "true", u.ID)
+
+	c.JSON(map[int]string{1: uemail, 2: u.Contacts.Email})
 	return nil
 }

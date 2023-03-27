@@ -1,23 +1,29 @@
 package services
 
-
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/abdulkarimov/onboarding/repositories"
+	"github.com/abdulkarimov/onboarding/models"
+	"github.com/abdulkarimov/onboarding/repositories"
+	"github.com/gofiber/fiber/v2"
 )
 
 func GetUsers(c *fiber.Ctx) error {
-	return repositories.GetUsers(c)
+	return c.JSON(repositories.GetUsers())
 }
 
 func AddUser(c *fiber.Ctx) error {
-	return repositories.AddUser(c)
+	u := new(models.User)
+	c.BodyParser(&u)
+	repositories.AddUser(*u)
+	return c.JSON(u)
 }
 
-func UpdateUser( c *fiber.Ctx) error {
-	return repositories.UpdateUser(c)
+func UpdateUser(c *fiber.Ctx) error {
+	u := new(models.User)
+	c.BodyParser(&u)
+	repositories.UpdateUser(u.ID, *u)
+	return c.JSON(u)
 }
 
-func DeleteUser( c *fiber.Ctx) error {
+func DeleteUser(c *fiber.Ctx) error {
 	return repositories.DeleteUser(c)
 }
