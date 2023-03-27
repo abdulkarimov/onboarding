@@ -9,7 +9,7 @@ import (
 func GetUsers(c *fiber.Ctx) error {
 
 	user := []models.User{}
-	database.DB.Db.Find(&user)
+	database.DB.Db.Preload("Questions").Preload("Stacks").Preload("Projects").Find(&user)
 
 	return c.Status(200).JSON(user)
 }
@@ -17,7 +17,7 @@ func GetUsers(c *fiber.Ctx) error {
 func AddUser(c *fiber.Ctx) error {
 	user := new(models.User)
 	c.BodyParser(user)
-	database.DB.Db.Create(user)
+	database.DB.Db.Preload("Questions").Preload("Stacks").Preload("Projects").Create(user)
 
 	return c.Status(200).JSON(user)
 }
@@ -28,7 +28,7 @@ func UpdateUser(c *fiber.Ctx) error {
 	user := models.User{}
 	c.BodyParser(&user)
 
-	result := database.DB.Db.First(&oldUser, c.Params("id")).Updates(user)
+	result := database.DB.Db.Preload("Questions").Preload("Stacks").Preload("Projects").First(&oldUser, c.Params("id")).Updates(user)
 
 	if result.RowsAffected != 0 {
 		return c.Status(200).JSON(oldUser)
@@ -38,7 +38,7 @@ func UpdateUser(c *fiber.Ctx) error {
 }
 
 func DeleteUser(c *fiber.Ctx) error {
-	result := database.DB.Db.Delete(&models.User{}, c.Params("id"))
+	result := database.DB.Db.Preload("Questions").Preload("Stacks").Preload("Projects").Delete(&models.User{}, c.Params("id"))
 	if result.RowsAffected != 0 {
 		return c.SendStatus(200)
 	}

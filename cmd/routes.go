@@ -11,68 +11,79 @@ func setupRoutes(app *fiber.App) {
 	api := app.Group("/api")
 
 	//user
-	api.Get("/getUsers", services.GetUsers)
-	api.Post("/addUser", validations.AddUser, services.AddUser)
-	api.Post("/updateUserById/:id", validations.EditUser, services.UpdateUser)
-	api.Post("/deleteUserById/:id", services.DeleteUser)
+	user := api.Group("/user")
+	user.Get("/get", services.GetUsers)
+	user.Post("/add", validations.AddUser, services.AddUser)
+	user.Post("/update", validations.EditUser, services.UpdateUser)
+	user.Post("/delete", services.DeleteUser)
 
 	//project
-	api.Get("/getProjects", repositories.GetProject)
-	api.Post("/addProject", repositories.AddProject)
-	api.Post("/updateProjectById/:id", repositories.UpdateProject)
-	api.Post("/deleteProjectById/:id", repositories.DeleteProject)
+	project := api.Group("/project")
+	project.Get("/get", repositories.GetProject)
+	project.Post("/add", repositories.AddProject)
+	project.Post("/update", repositories.UpdateProject)
+	project.Post("/delete", repositories.DeleteProject)
 
 	//stack
-	api.Get("/getStacks", repositories.GetStacks)
-	api.Post("/addStack", repositories.AddStack)
-	api.Post("/updateStackById/:id", repositories.UpdateStack)
-	api.Post("/deleteStackById/:id", repositories.DeleteStack)
+	stack := api.Group("/stack")
+	stack.Get("/get", repositories.GetStacks)
+	stack.Post("/add", repositories.AddStack)
+	stack.Post("/update", repositories.UpdateStack)
+	stack.Post("/delete", repositories.DeleteStack)
 
 	//position
-	api.Get("/getPosition", repositories.GetPosition)
-	api.Post("/addPosition", repositories.AddPosition)
-	api.Post("/updatePositionById/:id", repositories.UpdatePosition)
-	api.Post("/deletePositionById/:id", repositories.DeletePosition)
+	position := api.Group("/position")
+	position.Get("/get", repositories.GetPosition)
+	position.Post("/add", repositories.AddPosition)
+	position.Post("/update", repositories.UpdatePosition)
+	position.Post("/delete", repositories.DeletePosition)
 
 	//department
-	api.Get("/getDepartment", repositories.GetDepartment)
-	api.Post("/addDepartment", repositories.AddDepartment)
-	api.Post("/updateDepartmentById/:id", repositories.UpdateDepartment)
-	api.Post("/deleteDepartmentById/:id", repositories.DeleteDepartment)
+	department := api.Group("/department")
+	department.Get("/get", repositories.GetDepartment)
+	department.Post("/add", repositories.AddDepartment)
+	department.Post("/update", repositories.UpdateDepartment)
+	department.Post("/delete", repositories.DeleteDepartment)
 
 	//role
-	api.Get("/getRole", repositories.GetRole)
-	api.Post("/addRole", repositories.AddRole)
-	api.Post("/updateRoleById/:id", repositories.UpdateRole)
-	api.Post("/deleteRoleById/:id", repositories.DeleteRole)
+	role := api.Group("/role")
+	role.Get("/get", repositories.GetRole)
+	role.Post("/add", repositories.AddRole)
+	role.Post("/update", repositories.UpdateRole)
+	role.Post("/delete", repositories.DeleteRole)
 
 	//status
-	api.Get("/getStatus", repositories.GetStatus)
-	api.Post("/addStatus", repositories.AddStatus)
-	api.Post("/updateStatusById/:id", repositories.UpdateStatus)
-	api.Post("/deleteStatusById/:id", repositories.DeleteStatus)
+	status := api.Group("/status")
+	status.Get("/get", repositories.GetStatus)
+	status.Post("/add", repositories.AddStatus)
+	status.Post("/update", repositories.UpdateStatus)
+	status.Post("/delete", repositories.DeleteStatus)
 
 	//contacts
-	api.Get("/getContacts", repositories.GetContacts)
-	api.Post("/addContacts", repositories.AddContacts)
-	api.Post("/updateContactsById/:id", repositories.UpdateContacts)
-	api.Post("/deleteContactsById/:id", repositories.DeleteContacts)
+	contacts := api.Group("/contacts")
+	contacts.Get("/get", repositories.GetContacts)
+	contacts.Post("/add", repositories.AddContacts)
+	contacts.Post("/update", repositories.UpdateContacts)
+	contacts.Post("/delete", repositories.DeleteContacts)
 
 	//question
-	api.Get("/getQuestion", repositories.GetQuestion)
-	api.Post("/addQuestion", repositories.AddQuestion)
-	api.Post("/updateQuestionById/:id", repositories.UpdateQuestion)
-	api.Post("/deleteQuestionById/:id", repositories.DeleteQuestion)
+	question := api.Group("/question")
+	question.Get("/get", repositories.GetQuestion)
+	question.Post("/add", repositories.AddQuestion)
+	question.Post("/update", repositories.UpdateQuestion)
+	question.Post("/delete", repositories.DeleteQuestion)
 
 	//form
-	api.Get("/getForm", repositories.GetForm)
-	api.Post("/addForm", repositories.AddForm)
-	api.Post("/updateFormById/:id", repositories.UpdateForm)
-	api.Post("/deleteFormById/:id", repositories.DeleteForm)
+	form := api.Group("/form")
+	form.Get("/get", repositories.GetForm)
+	form.Post("/add", repositories.AddForm)
+	form.Post("/update", repositories.UpdateForm)
+	form.Post("/delete", repositories.DeleteForm)
 
 	//post
-	api.Get("/getPost", repositories.GetPost)
-	api.Post("/addPost", repositories.AddPost)
-	api.Post("/updatePostById/:id", repositories.UpdatePost)
-	api.Post("/deletePostById/:id", repositories.DeletePost)
+	post := api.Group("/post")
+	post.Get("/get", repositories.GetPost)
+	post.Post("/add", repositories.AddPost)
+	post.Post("/update", repositories.UpdatePost)
+	post.Post("/delete", repositories.DeletePost)
 }
