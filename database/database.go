@@ -18,12 +18,12 @@ type Dbinstance struct {
 var DB Dbinstance
 
 func ConnectDb() {
-   	dsn := fmt.Sprintf(
-        "host=db user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=Asia/Shanghai",
-        os.Getenv("DB_USER"),
-        os.Getenv("DB_PASSWORD"),
-        os.Getenv("DB_NAME"),
-    )
+	dsn := fmt.Sprintf(
+		"host=db user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=Asia/Shanghai",
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_NAME"),
+	)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
@@ -38,7 +38,7 @@ func ConnectDb() {
 	db.Logger = logger.Default.LogMode(logger.Info)
 
 	log.Println("running migrations")
-	db.AutoMigrate(&models.Project{}, &models.Stack{}, &models.Form{}, &models.Question{}, &models.Cabinet{}, &models.Contacts{}, &models.Department{}, &models.Hash{}, &models.Position{}, &models.Role{}, &models.Status{}, &models.User{}, &models.Post{})
+	db.AutoMigrate(&models.Project{}, &models.Stack{}, &models.Form{}, &models.Question{}, &models.Contacts{}, &models.Department{}, &models.Position{}, &models.Role{}, &models.Status{}, &models.User{}, &models.Post{})
 
 	DB = Dbinstance{
 		Db: db,

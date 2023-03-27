@@ -18,7 +18,6 @@ type User struct {
 	DepartmentID  uint
 	Department    Department
 	CabinetID     uint
-	Cabinet       Cabinet
 	ContactsID    uint
 	Contacts      Contacts
 	MentorID      uint
@@ -27,7 +26,6 @@ type User struct {
 	Stacks        []Stack    `gorm:"many2many:userStack"`
 	Projects      []Project  `gorm:"many2many:userProject"`
 	HashID        uint
-	Hash          Hash
 	RoleID        uint
 	Role          Role
 	Schedule      string
@@ -64,17 +62,6 @@ type Role struct {
 type Status struct {
 	ID   uint `gorm:"primary key"`
 	Name string
-}
-
-type Hash struct {
-	ID   uint `gorm:"primary key"`
-	Name string
-}
-
-type Cabinet struct {
-	ID      uint `gorm:"primary key"`
-	Floor   uint
-	Cabinet uint
 }
 
 type Contacts struct {
