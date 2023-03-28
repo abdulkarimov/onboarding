@@ -1,14 +1,12 @@
 package database
 
 import (
-	"fmt"
-	"log"
-	"os"
-
 	"github.com/abdulkarimov/onboarding/models"
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"log"
+	"os"
 )
 
 type Dbinstance struct {
@@ -18,14 +16,8 @@ type Dbinstance struct {
 var DB Dbinstance
 
 func ConnectDb() {
-   	dsn := fmt.Sprintf(
-        "host=db user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=Asia/Shanghai",
-        os.Getenv("DB_USER"),
-        os.Getenv("DB_PASSWORD"),
-        os.Getenv("DB_NAME"),
-    )
 
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+	db, err := gorm.Open(sqlite.Open("Users.db"), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 
