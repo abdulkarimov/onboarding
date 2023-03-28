@@ -28,7 +28,7 @@ func UpdateProject(c *fiber.Ctx) error {
 	project := models.User{}
 	c.BodyParser(&project)
 
-	result := database.DB.Db.First(&oldProject, c.Params("id")).Updates(project)
+	result := database.DB.Db.First(&oldProject, c.Params("ID")).Updates(project)
 
 	if result.RowsAffected != 0 {
 		return c.Status(200).JSON(oldProject)
@@ -38,7 +38,7 @@ func UpdateProject(c *fiber.Ctx) error {
 }
 
 func DeleteProject(c *fiber.Ctx) error {
-	result := database.DB.Db.Delete(&models.Project{}, c.Params("id"))
+	result := database.DB.Db.Delete(&models.Project{}, c.Params("ID"))
 	if result.RowsAffected != 0 {
 		return c.SendStatus(200)
 	}

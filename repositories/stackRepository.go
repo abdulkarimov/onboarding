@@ -28,7 +28,7 @@ func UpdateStack(c *fiber.Ctx) error {
 	stack := models.Stack{}
 	c.BodyParser(&stack)
 
-	result := database.DB.Db.First(&oldStack, c.Params("id")).Updates(stack)
+	result := database.DB.Db.First(&oldStack, c.Params("ID")).Updates(stack)
 
 	if result.RowsAffected != 0 {
 		return c.Status(200).JSON(oldStack)
@@ -38,7 +38,7 @@ func UpdateStack(c *fiber.Ctx) error {
 }
 
 func DeleteStack(c *fiber.Ctx) error {
-	result := database.DB.Db.Delete(&models.Stack{}, c.Params("id"))
+	result := database.DB.Db.Delete(&models.Stack{}, c.Params("ID"))
 	if result.RowsAffected != 0 {
 		return c.SendStatus(200)
 	}

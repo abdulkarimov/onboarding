@@ -28,7 +28,7 @@ func UpdateForm(c *fiber.Ctx) error {
 	form := models.Form{}
 	c.BodyParser(&form)
 
-	result := database.DB.Db.First(&oldForm, c.Params("id")).Updates(form)
+	result := database.DB.Db.First(&oldForm, c.Params("ID")).Updates(form)
 
 	if result.RowsAffected != 0 {
 		return c.Status(200).JSON(oldForm)
@@ -38,7 +38,7 @@ func UpdateForm(c *fiber.Ctx) error {
 }
 
 func DeleteForm(c *fiber.Ctx) error {
-	result := database.DB.Db.Delete(&models.Form{}, c.Params("id"))
+	result := database.DB.Db.Delete(&models.Form{}, c.Params("ID"))
 	if result.RowsAffected != 0 {
 		return c.SendStatus(200)
 	}

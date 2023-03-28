@@ -28,7 +28,7 @@ func UpdateRole(c *fiber.Ctx) error {
 	role := models.Role{}
 	c.BodyParser(&role)
 
-	result := database.DB.Db.First(&oldRole, c.Params("id")).Updates(role)
+	result := database.DB.Db.First(&oldRole, c.Params("ID")).Updates(role)
 
 	if result.RowsAffected != 0 {
 		return c.Status(200).JSON(oldRole)
@@ -38,7 +38,7 @@ func UpdateRole(c *fiber.Ctx) error {
 }
 
 func DeleteRole(c *fiber.Ctx) error {
-	result := database.DB.Db.Delete(&models.Role{}, c.Params("id"))
+	result := database.DB.Db.Delete(&models.Role{}, c.Params("ID"))
 	if result.RowsAffected != 0 {
 		return c.SendStatus(200)
 	}

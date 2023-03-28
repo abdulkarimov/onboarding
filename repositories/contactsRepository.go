@@ -28,7 +28,7 @@ func UpdateContacts(c *fiber.Ctx) error {
 	contacts := models.Contacts{}
 	c.BodyParser(&contacts)
 
-	result := database.DB.Db.First(&oldContacts, c.Params("id")).Updates(contacts)
+	result := database.DB.Db.First(&oldContacts, c.Params("ID")).Updates(contacts)
 
 	if result.RowsAffected != 0 {
 		return c.Status(200).JSON(oldContacts)
@@ -38,7 +38,7 @@ func UpdateContacts(c *fiber.Ctx) error {
 }
 
 func DeleteContacts(c *fiber.Ctx) error {
-	result := database.DB.Db.Delete(&models.Contacts{}, c.Params("id"))
+	result := database.DB.Db.Delete(&models.Contacts{}, c.Params("ID"))
 	if result.RowsAffected != 0 {
 		return c.SendStatus(200)
 	}

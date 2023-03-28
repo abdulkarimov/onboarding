@@ -28,7 +28,7 @@ func UpdateStatus(c *fiber.Ctx) error {
 	status := models.Status{}
 	c.BodyParser(&status)
 
-	result := database.DB.Db.First(&oldStatus, c.Params("id")).Updates(status)
+	result := database.DB.Db.First(&oldStatus, c.Params("ID")).Updates(status)
 
 	if result.RowsAffected != 0 {
 		return c.Status(200).JSON(oldStatus)
@@ -38,7 +38,7 @@ func UpdateStatus(c *fiber.Ctx) error {
 }
 
 func DeleteStatus(c *fiber.Ctx) error {
-	result := database.DB.Db.Delete(&models.Status{}, c.Params("id"))
+	result := database.DB.Db.Delete(&models.Status{}, c.Params("ID"))
 	if result.RowsAffected != 0 {
 		return c.SendStatus(200)
 	}

@@ -28,7 +28,7 @@ func UpdateDepartment(c *fiber.Ctx) error {
 	department := models.Department{}
 	c.BodyParser(&department)
 
-	result := database.DB.Db.First(&oldDepartment, c.Params("id")).Updates(department)
+	result := database.DB.Db.First(&oldDepartment, c.Params("ID")).Updates(department)
 
 	if result.RowsAffected != 0 {
 		return c.Status(200).JSON(oldDepartment)
@@ -38,7 +38,7 @@ func UpdateDepartment(c *fiber.Ctx) error {
 }
 
 func DeleteDepartment(c *fiber.Ctx) error {
-	result := database.DB.Db.Delete(&models.Department{}, c.Params("id"))
+	result := database.DB.Db.Delete(&models.Department{}, c.Params("ID"))
 	if result.RowsAffected != 0 {
 		return c.SendStatus(200)
 	}

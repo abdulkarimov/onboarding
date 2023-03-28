@@ -28,7 +28,7 @@ func UpdatePosition(c *fiber.Ctx) error {
 	position := models.Position{}
 	c.BodyParser(&position)
 
-	result := database.DB.Db.First(&oldPosition, c.Params("id")).Updates(position)
+	result := database.DB.Db.First(&oldPosition, c.Params("ID")).Updates(position)
 
 	if result.RowsAffected != 0 {
 		return c.Status(200).JSON(oldPosition)
@@ -38,7 +38,7 @@ func UpdatePosition(c *fiber.Ctx) error {
 }
 
 func DeletePosition(c *fiber.Ctx) error {
-	result := database.DB.Db.Delete(&models.Position{}, c.Params("id"))
+	result := database.DB.Db.Delete(&models.Position{}, c.Params("ID"))
 	if result.RowsAffected != 0 {
 		return c.SendStatus(200)
 	}
