@@ -1,12 +1,14 @@
 package repositories
 
 import (
+	"log"
+
 	"github.com/abdulkarimov/onboarding/database"
 	"github.com/abdulkarimov/onboarding/models"
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetProject(c *fiber.Ctx) error {
+func GetProjects(c *fiber.Ctx) error {
 
 	project := []models.Project{}
 	database.DB.Db.Find(&project)
@@ -24,8 +26,8 @@ func AddProject(c *fiber.Ctx) error {
 
 func UpdateProject(c *fiber.Ctx) error {
 
-	oldProject := models.User{}
-	project := models.User{}
+	oldProject := models.Project{}
+	project := models.Project{}
 	c.BodyParser(&project)
 
 	result := database.DB.Db.First(&oldProject, c.Params("ID")).Updates(project)
@@ -39,6 +41,7 @@ func UpdateProject(c *fiber.Ctx) error {
 
 func DeleteProject(c *fiber.Ctx) error {
 	result := database.DB.Db.Delete(&models.Project{}, c.Params("ID"))
+	log.Println(c.Params("ID"))
 	if result.RowsAffected != 0 {
 		return c.SendStatus(200)
 	}

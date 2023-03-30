@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetRole(c *fiber.Ctx) error {
+func GetRoles(c *fiber.Ctx) error {
 
 	role := []models.Role{}
 	database.DB.Db.Find(&role)

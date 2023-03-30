@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetPosition(c *fiber.Ctx) error {
+func GetPositions(c *fiber.Ctx) error {
 
 	position := []models.Position{}
 	database.DB.Db.Find(&position)

@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetDepartment(c *fiber.Ctx) error {
+func GetDepartments(c *fiber.Ctx) error {
 
 	department := []models.Department{}
 	database.DB.Db.Find(&department)

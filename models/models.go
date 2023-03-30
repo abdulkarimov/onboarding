@@ -1,91 +1,99 @@
 package models
 
 import (
-	"time"
-
 	"gorm.io/gorm"
 )
 
 type User struct {
 	gorm.Model
-	Name          string
-	Age           int
-	Date_of_birth time.Time
-	Img           string
-	PositionId    uint
-	Position      Position
-	Info          string
-	DepartmentID  uint
-	Department    Department
-	CabinetID     uint
-	ContactsID    uint
-	Contacts      Contacts
-	MentorID      uint
-	Mentor        *User
-	Questions     []Question `gorm:"many2many:userQuestion"`
-	Stacks        []Stack    `gorm:"many2many:userStack"`
-	Projects      []Project  `gorm:"many2many:userProject"`
-	HashID        uint
-	RoleID        uint
-	Role          Role
-	Schedule      string
-	StatusID      uint
-	Status        Status
+	Name         string `json:"name"`
+	Age          int    `json:"age"`
+	DateOfBirth  string `json:"dateOfBirth"`
+	Img          string `json:"img"`
+	ProjectId    uint   `json:"projectId"`
+	Project      Project
+	StackId      uint `json:"stackId"`
+	Stack        Stack
+	PositionId   uint `json:"positionId"`
+	Position     Position
+	Info         string `json:"info"`
+	DepartmentID uint   `json:"departmentId"`
+	Department   Department
+	ContactsID   uint `json:"contactsId"`
+	Contacts     Contacts
+	MentorID     uint `json:"mentorId"`
+	Mentor       *User
+	RoleID       uint `json:"roleId"`
+	Role         Role
+	Schedule     string `json:"schedule"`
+	StatusID     uint   `json:"statusId"`
+	Status       Status
+	Verified     bool `json:"verified"`
 }
 
 type Project struct {
 	gorm.Model
-	Name        string
-	Description string
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }
 
 type Stack struct {
-	ID   uint `gorm:"primary key"`
-	Name string
+	gorm.Model
+	Name string `json:"name"`
 }
 
 type Position struct {
-	ID   uint `gorm:"primary key"`
-	Name string
+	gorm.Model
+	Name string `json:"name"`
 }
 
 type Department struct {
-	ID   uint `gorm:"primary key"`
-	Name string
+	gorm.Model
+	Name string `json:"name"`
 }
 
 type Role struct {
-	ID   uint `gorm:"primary key"`
-	Name string
+	gorm.Model
+	Name string `json:"name"`
 }
 
 type Status struct {
-	ID   uint `gorm:"primary key"`
-	Name string
+	gorm.Model
+	Name string `json:"name"`
 }
 
 type Contacts struct {
-	ID         uint `gorm:"primary key"`
-	Home_phone string
-	Work_phone string
-	Email      string
+	gorm.Model
+	HomePhone string `json:"homePhone"`
+	WorkPhone string `json:"workPhone"`
+	Email     string `json:"email"`
 }
 
 type Question struct {
 	gorm.Model
-	Name   string
-	FormId uint
-	Form   Form
+	Name   string `json:"name"`
+	FormId uint   `json:"formId"`
 }
 
 type Form struct {
-	ID   uint `gorm:"primary key"`
-	Name string
+	gorm.Model
+	Name string `json:"name"`
 }
 
 type Post struct {
 	gorm.Model
-	Name    string
-	Content string
-	Img     string
+	Name    string `json:"name"`
+	Content string `json:"content"`
+	Img     string `json:"img"`
+}
+
+type Skill struct {
+	gorm.Model
+	Name string `json:"name"`
+}
+
+type Answer struct {
+	gorm.Model
+	Content    string `json:"content"`
+	QuestionId uint   `json:"questionId"`
 }

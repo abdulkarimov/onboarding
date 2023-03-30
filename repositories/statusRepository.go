@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetStatus(c *fiber.Ctx) error {
+func GetStatuses(c *fiber.Ctx) error {
 
 	status := []models.Status{}
 	database.DB.Db.Find(&status)

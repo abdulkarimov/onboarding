@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetForm(c *fiber.Ctx) error {
+func GetForms(c *fiber.Ctx) error {
 
 	form := []models.Form{}
 	database.DB.Db.Find(&form)

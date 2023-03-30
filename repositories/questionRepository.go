@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetQuestion(c *fiber.Ctx) error {
+func GetQuestions(c *fiber.Ctx) error {
 
 	question := []models.Question{}
 	database.DB.Db.Find(&question)

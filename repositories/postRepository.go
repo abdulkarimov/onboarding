@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetPost(c *fiber.Ctx) error {
+func GetPosts(c *fiber.Ctx) error {
 
 	post := []models.Post{}
 	database.DB.Db.Find(&post)
