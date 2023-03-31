@@ -6,15 +6,15 @@ import (
 
 type User struct {
 	gorm.Model
-	Name         string `json:"name"`
-	Age          int    `json:"age"`
-	DateOfBirth  string `json:"dateOfBirth"`
-	Img          string `json:"img"`
-	ProjectId    uint   `json:"projectId"`
-	Project      Project
-	StackId      uint `json:"stackId"`
-	Stack        Stack
-	PositionId   uint `json:"positionId"`
+	Name         string    `json:"name"`
+	Age          int       `json:"age"`
+	DateOfBirth  string    `json:"dateOfBirth"`
+	Img          string    `json:"img"`
+	ProjectId    uint      `json:"projectId"`
+	Projects     []Project `gorm:"many2many:UserProject;foreignKey:ProjectId;joinForeignKey:ProjectUserId;References:ProjectUser;joinReferences:ProjectReferer"`
+	StackId      uint      `json:"stackId"`
+	Stacks       []Stack   `gorm:"many2many:UserStack"`
+	PositionId   uint      `json:"positionId"`
 	Position     Position
 	Info         string `json:"info"`
 	DepartmentID uint   `json:"departmentId"`
@@ -28,13 +28,16 @@ type User struct {
 	Schedule     string `json:"schedule"`
 	StatusID     uint   `json:"statusId"`
 	Status       Status
-	Verified     bool `json:"verified"`
+	SkillID      uint    `json:"skillId"`
+	Skills       []Skill `gorm:"many2many:UserSkill"`
+	Verified     bool    `json:"verified"`
 }
 
 type Project struct {
 	gorm.Model
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	ProjectUser uint   `json:"projectUser"`
 }
 
 type Stack struct {

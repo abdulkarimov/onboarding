@@ -9,7 +9,7 @@ import (
 func GetUsers(c *fiber.Ctx) error {
 
 	user := []models.User{}
-	database.DB.Db.Preload("Project").Preload("Stack").Preload("Position").Preload("Department").Preload("Contacts").Preload("Role").Preload("Status").Find(&user)
+	database.DB.Db.Preload("Project").Preload("Stack").Preload("Position").Preload("Department").Preload("Contacts").Preload("Role").Preload("Status").Preload("Skill").Find(&user)
 
 	return c.Status(200).JSON(user)
 }
