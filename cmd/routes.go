@@ -15,6 +15,9 @@ func setupRoutes(app *fiber.App) {
 	user.Get("/get", services.GetUsers)
 	user.Post("/add", validations.AddUser, services.AddUser)
 	user.Post("/update", validations.EditUser, services.UpdateUser)
+	user.Post("/addProject", repositories.AddProjectToUser)
+	user.Post("/addSkill", repositories.AddSkillToUser)
+	user.Post("/addStack", repositories.AddStackToUser)
 	user.Post("/delete/:ID?", services.DeleteUser)
 
 	//project

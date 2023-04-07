@@ -10,9 +10,7 @@ type User struct {
 	Age          int       `json:"age"`
 	DateOfBirth  string    `json:"dateOfBirth"`
 	Img          string    `json:"img"`
-	ProjectId    uint      `json:"projectId"`
-	Projects     []Project `gorm:"many2many:UserProject;foreignKey:ProjectId;joinForeignKey:ProjectUserId;References:ProjectUser;joinReferences:ProjectReferer"`
-	StackId      uint      `json:"stackId"`
+	Projects     []Project `gorm:"many2many:UserProject"`
 	Stacks       []Stack   `gorm:"many2many:UserStack"`
 	PositionId   uint      `json:"positionId"`
 	Position     Position
@@ -28,7 +26,6 @@ type User struct {
 	Schedule     string `json:"schedule"`
 	StatusID     uint   `json:"statusId"`
 	Status       Status
-	SkillID      uint    `json:"skillId"`
 	Skills       []Skill `gorm:"many2many:UserSkill"`
 	Verified     bool    `json:"verified"`
 }
@@ -38,11 +35,23 @@ type Project struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	ProjectUser uint   `json:"projectUser"`
+	User        []User `gorm:"many2many:UserProject"`
+}
+
+type UserProject struct {
+	UserId    uint64 `json:"userId"`
+	ProjectId uint64 `json:"projectId"`
 }
 
 type Stack struct {
 	gorm.Model
 	Name string `json:"name"`
+	User []User `gorm:"many2many:UserStack"`
+}
+
+type UserStack struct {
+	UserId  uint64 `json:"userId"`
+	StackId uint64 `json:"stackId"`
 }
 
 type Position struct {
@@ -93,6 +102,12 @@ type Post struct {
 type Skill struct {
 	gorm.Model
 	Name string `json:"name"`
+	User []User `gorm:"many2many:UserSkill"`
+}
+
+type UserSkill struct {
+	UserId  uint64 `json:"userId"`
+	SkillId uint64 `json:"skillId"`
 }
 
 type Answer struct {
