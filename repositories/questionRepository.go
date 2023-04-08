@@ -9,7 +9,7 @@ import (
 func GetQuestions(c *fiber.Ctx) error {
 
 	question := []models.Question{}
-	database.DB.Db.Find(&question)
+	database.DB.Db.Preload("Forms").Preload("Answers").Find(&question)
 
 	return c.Status(200).JSON(question)
 }

@@ -9,7 +9,7 @@ import (
 func GetSkills(c *fiber.Ctx) error {
 
 	skill := []models.Skill{}
-	database.DB.Db.Find(&skill)
+	database.DB.Db.Preload("Users").Find(&skill)
 
 	return c.Status(200).JSON(skill)
 }

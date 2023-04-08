@@ -9,7 +9,7 @@ import (
 func GetAnswers(c *fiber.Ctx) error {
 
 	answer := []models.Answer{}
-	database.DB.Db.Find(&answer)
+	database.DB.Db.Preload("Questions").Find(&answer)
 
 	return c.Status(200).JSON(answer)
 }
@@ -20,6 +20,14 @@ func AddAnswer(c *fiber.Ctx) error {
 	database.DB.Db.Create(answer)
 
 	return c.Status(200).JSON(answer)
+}
+
+func AddAnswerToQuestion(c *fiber.Ctx) error {
+	questionAnswer := new(models.QuestionAnswer)
+	c.BodyParser(questionAnswer)
+	database.DB.Db.Create(questionAnswer)
+
+	return c.Status(200).JSON(questionAnswer)
 }
 
 func UpdateAnswer(c *fiber.Ctx) error {

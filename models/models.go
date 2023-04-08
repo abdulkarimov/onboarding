@@ -35,7 +35,7 @@ type Project struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	ProjectUser uint   `json:"projectUser"`
-	User        []User `gorm:"many2many:UserProject"`
+	Users       []User `gorm:"many2many:UserProject"`
 }
 
 type UserProject struct {
@@ -45,8 +45,8 @@ type UserProject struct {
 
 type Stack struct {
 	gorm.Model
-	Name string `json:"name"`
-	User []User `gorm:"many2many:UserStack"`
+	Name  string `json:"name"`
+	Users []User `gorm:"many2many:UserStack"`
 }
 
 type UserStack struct {
@@ -83,13 +83,21 @@ type Contacts struct {
 
 type Question struct {
 	gorm.Model
-	Name   string `json:"name"`
-	FormId uint   `json:"formId"`
+	Name    string   `json:"name"`
+	FormId  uint     `json:"formId"`
+	Forms   []Form   `gorm:"many2many:FormQuestion"`
+	Answers []Answer `gorm:"many2many:QuestionAnswer"`
+}
+
+type FormQuestion struct {
+	FormId     uint64 `json:"formId"`
+	QuestionId uint64 `json:"questionId"`
 }
 
 type Form struct {
 	gorm.Model
-	Name string `json:"name"`
+	Name      string     `json:"name"`
+	Questions []Question `gorm:"many2many:FormQuestion"`
 }
 
 type Post struct {
@@ -101,8 +109,8 @@ type Post struct {
 
 type Skill struct {
 	gorm.Model
-	Name string `json:"name"`
-	User []User `gorm:"many2many:UserSkill"`
+	Name  string `json:"name"`
+	Users []User `gorm:"many2many:UserSkill"`
 }
 
 type UserSkill struct {
@@ -112,6 +120,12 @@ type UserSkill struct {
 
 type Answer struct {
 	gorm.Model
-	Content    string `json:"content"`
-	QuestionId uint   `json:"questionId"`
+	Content    string     `json:"content"`
+	QuestionId uint       `json:"questionId"`
+	Questions  []Question `gorm:"many2many:QuestionAnswer"`
+}
+
+type QuestionAnswer struct {
+	AnswerId   uint64 `json:"answerId"`
+	QuestionId uint64 `json:"questionId"`
 }

@@ -11,7 +11,7 @@ import (
 func GetProjects(c *fiber.Ctx) error {
 
 	project := []models.Project{}
-	database.DB.Db.Find(&project)
+	database.DB.Db.Preload("Users").Find(&project)
 
 	return c.Status(200).JSON(project)
 }

@@ -9,7 +9,7 @@ import (
 func GetStacks(c *fiber.Ctx) error {
 
 	stack := []models.Stack{}
-	database.DB.Db.Find(&stack)
+	database.DB.Db.Preload("Users").Find(&stack)
 
 	return c.Status(200).JSON(stack)
 }

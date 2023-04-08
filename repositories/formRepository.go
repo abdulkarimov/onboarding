@@ -9,7 +9,7 @@ import (
 func GetForms(c *fiber.Ctx) error {
 
 	form := []models.Form{}
-	database.DB.Db.Find(&form)
+	database.DB.Db.Preload("Questions").Find(&form)
 
 	return c.Status(200).JSON(form)
 }
@@ -20,6 +20,14 @@ func AddForm(c *fiber.Ctx) error {
 	database.DB.Db.Create(form)
 
 	return c.Status(200).JSON(form)
+}
+
+func AddQuestionToForm(c *fiber.Ctx) error {
+	questionToForm := new(models.FormQuestion)
+	c.BodyParser(questionToForm)
+	database.DB.Db.Create(questionToForm)
+
+	return c.Status(200).JSON(questionToForm)
 }
 
 func UpdateForm(c *fiber.Ctx) error {

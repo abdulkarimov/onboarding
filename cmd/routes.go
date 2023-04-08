@@ -13,6 +13,7 @@ func setupRoutes(app *fiber.App) {
 	//user
 	user := api.Group("/user")
 	user.Get("/get", services.GetUsers)
+	user.Post("/getById/:ID?", services.GetUsers)
 	user.Post("/add", validations.AddUser, services.AddUser)
 	user.Post("/update", validations.EditUser, services.UpdateUser)
 	user.Post("/addProject", repositories.AddProjectToUser)
@@ -81,6 +82,7 @@ func setupRoutes(app *fiber.App) {
 	form.Get("/get", repositories.GetForms)
 	form.Post("/add", repositories.AddForm)
 	form.Post("/update", repositories.UpdateForm)
+	form.Post("/addQuestion", repositories.AddQuestionToForm)
 	form.Post("/delete/:ID?", repositories.DeleteForm)
 
 	//post
@@ -102,5 +104,7 @@ func setupRoutes(app *fiber.App) {
 	answer.Get("/get", repositories.GetAnswers)
 	answer.Post("/add", repositories.AddAnswer)
 	answer.Post("/update", repositories.UpdateAnswer)
+	answer.Post("/addQuestion", repositories.AddAnswerToQuestion)
 	answer.Post("/delete/:ID?", repositories.DeleteAnswer)
+
 }
