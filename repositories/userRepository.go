@@ -4,11 +4,13 @@ import (
 	"github.com/abdulkarimov/onboarding/database"
 	"github.com/abdulkarimov/onboarding/models"
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm/clause"
 )
 
 func GetUsers(c *fiber.Ctx) error {
 	user := []models.User{}
-	database.DB.Db.Preload("Skills").Preload("Stacks").Preload("Position").Preload("Department").Preload("Contacts").Preload("Role").Preload("Status").Preload("Projects").Find(&user)
+	//database.DB.Db.Preload("Skills").Preload("Stacks").Preload("Position").Preload("Department").Preload("Contacts").Preload("Role").Preload("Status").Preload("Projects").Find(&user)
+	database.DB.Db.Preload(clause.Associations).Find(&user)
 	return c.Status(200).JSON(user)
 }
 
