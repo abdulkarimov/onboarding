@@ -4,13 +4,19 @@ import (
 	"github.com/abdulkarimov/onboarding/database"
 	"github.com/abdulkarimov/onboarding/models"
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm/clause"
 )
 
 func GetUsers(c *fiber.Ctx) error {
-
 	user := []models.User{}
-	database.DB.Db.Find(&user)
+	//database.DB.Db.Preload("Skills").Preload("Stacks").Preload("Position").Preload("Department").Preload("Contacts").Preload("Role").Preload("Status").Preload("Projects").Find(&user)
+	database.DB.Db.Preload(clause.Associations).Find(&user)
+	return c.Status(200).JSON(user)
+}
 
+func GetUserById(c *fiber.Ctx) error {
+	user := []models.User{}
+	database.DB.Db.Preload("Skills").Preload("Stacks").Preload("Position").Preload("Department").Preload("Contacts").Preload("Role").Preload("Status").Preload("Projects").Find(&user, c.Params("id"))
 	return c.Status(200).JSON(user)
 }
 
@@ -20,6 +26,27 @@ func AddUser(c *fiber.Ctx) error {
 	database.DB.Db.Create(user)
 
 	return c.Status(200).JSON(user)
+}
+
+func AddProjectToUser(c *fiber.Ctx) error {
+	userProject := new(models.UserProject)
+	c.BodyParser(userProject)
+	database.DB.Db.Create(userProject)
+	return c.Status(200).JSON(userProject)
+}
+
+func AddSkillToUser(c *fiber.Ctx) error {
+	userSkill := new(models.UserSkill)
+	c.BodyParser(userSkill)
+	database.DB.Db.Create(userSkill)
+	return c.Status(200).JSON(userSkill)
+}
+
+func AddStackToUser(c *fiber.Ctx) error {
+	userStack := new(models.UserStack)
+	c.BodyParser(userStack)
+	database.DB.Db.Create(userStack)
+	return c.Status(200).JSON(userStack)
 }
 
 func UpdateUser(c *fiber.Ctx) error {
