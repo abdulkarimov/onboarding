@@ -83,6 +83,7 @@ func setupRoutes(app *fiber.App) {
 	form.Post("/add", repositories.AddForm)
 	form.Post("/update", repositories.UpdateForm)
 	form.Post("/addQuestion", repositories.AddQuestionToForm)
+	form.Post("/addUser", repositories.AddUserToForm)
 	form.Post("/delete/:ID?", repositories.DeleteForm)
 
 	//post

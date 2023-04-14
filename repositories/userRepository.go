@@ -9,14 +9,13 @@ import (
 
 func GetUsers(c *fiber.Ctx) error {
 	user := []models.User{}
-	//database.DB.Db.Preload("Skills").Preload("Stacks").Preload("Position").Preload("Department").Preload("Contacts").Preload("Role").Preload("Status").Preload("Projects").Find(&user)
 	database.DB.Db.Preload(clause.Associations).Find(&user)
 	return c.Status(200).JSON(user)
 }
 
 func GetUserById(c *fiber.Ctx) error {
 	user := []models.User{}
-	database.DB.Db.Preload("Skills").Preload("Stacks").Preload("Position").Preload("Department").Preload("Contacts").Preload("Role").Preload("Status").Preload("Projects").Find(&user, c.Params("id"))
+	database.DB.Db.Preload(clause.Associations).Find(&user, c.Params("id"))
 	return c.Status(200).JSON(user)
 }
 

@@ -4,12 +4,13 @@ import (
 	"github.com/abdulkarimov/onboarding/database"
 	"github.com/abdulkarimov/onboarding/models"
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm/clause"
 )
 
 func GetForms(c *fiber.Ctx) error {
 
 	form := []models.Form{}
-	database.DB.Db.Preload("Questions").Find(&form)
+	database.DB.Db.Preload(clause.Associations).Find(&form)
 
 	return c.Status(200).JSON(form)
 }
@@ -28,6 +29,13 @@ func AddQuestionToForm(c *fiber.Ctx) error {
 	database.DB.Db.Create(questionToForm)
 
 	return c.Status(200).JSON(questionToForm)
+}
+
+func AddUserToForm(c *fiber.Ctx) error {
+	formUser := new(models.FormUser)
+	c.BodyParser(formUser)
+	database.DB.Db.Create(formUser)
+	return c.Status(200).JSON(formUser)
 }
 
 func UpdateForm(c *fiber.Ctx) error {
