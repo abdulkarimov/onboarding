@@ -27,6 +27,7 @@ type User struct {
 	StatusID     uint   `json:"statusId"`
 	Status       Status
 	Skills       []Skill `gorm:"many2many:UserSkill"`
+	Forms        []Form  `gorm:"many2many:FormUsers"`
 	Verified     bool    `json:"verified"`
 }
 
@@ -94,10 +95,16 @@ type FormQuestion struct {
 	QuestionId uint64 `json:"questionId"`
 }
 
+type FormUser struct {
+	FormId uint64 `json:"formId"`
+	UserId uint64 `json:"UserId"`
+}
+
 type Form struct {
 	gorm.Model
 	Name      string     `json:"name"`
 	Questions []Question `gorm:"many2many:FormQuestion"`
+	Users     []User     `gorm:"many2many:FormUsers"`
 }
 
 type Post struct {
