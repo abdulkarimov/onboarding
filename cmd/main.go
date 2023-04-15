@@ -13,8 +13,9 @@ func main() {
 	setupRoutes(app)
 
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:     "http://127.0.0.1:3000",
+		AllowOrigins:     "*",
 		AllowCredentials: true,
+		AllowHeaders:     "Origin, Content-Type, Accept, Accept-Language, Content-Length",
 	}))
 
 	app.Listen(":3000")
