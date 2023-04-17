@@ -15,4 +15,5 @@ func setupRoutes(app *fiber.App) {
 	api.Post("/updateUserById/:id", validations.EditUser, services.UpdateUser)
 	api.Post("/deleteUserById/:id", services.DeleteUser)
 	api.Get("/search", services.SearchUsers)
+	api.Get("/s", services.SearchUsers)
 }

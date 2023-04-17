@@ -17,6 +17,11 @@ func GetUsers(c *fiber.Ctx) error {
 func AddUser(c *fiber.Ctx) error {
 	user := new(models.User)
 	c.BodyParser(user)
+	user.Projects = []models.Project{
+		{
+			Name: "test",
+		},
+	}
 	database.DB.Db.Create(user)
 
 	return c.Status(200).JSON(user)
