@@ -17,6 +17,7 @@ func FindUser(u models.User) models.User {
 	database.DB.Db.Find(&user, u)
 	return user
 }
+
 func FindPreloadUser(preload string, query string) models.User {
 	user := models.User{}
 	database.DB.Db.Joins(preload).First(&user, query)
