@@ -15,7 +15,7 @@ import (
 func main() {
 	godotenv.Load(".env")
 	database.ConnectDb()
-	notify.New(os.Getenv("TELEGRAM_BOT_TOKEN"))
+	notify.New()
 
 	goth.UseProviders(
 		google.New(os.Getenv("GOOGLE_OAUTH_CLIENT_ID"), os.Getenv("GOOGLE_OAUTH_CLIENT_SECRET"),

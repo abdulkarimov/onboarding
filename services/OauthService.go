@@ -31,11 +31,14 @@ func Callback(c *fiber.Ctx) error {
 
 	var du = repositories.FindPreloadUser("Contacts", fmt.Sprintf("Contacts.Email = '%s'", user.Email))
 
+	link := os.Getenv("URL") + "/auth/user/verify?token=" + u.Contacts.Email
 	if du.Contacts.Email != user.Email {
 		database.DB.Db.Create(&u)
-		notify.Notify.SendTelegram(u.Contacts.Email, os.Getenv("URL")+"/auth/user/verify?token="+u.Contacts.Email)
+		notify.Notify.SendNotifyTelegram(u.Contacts.Email, link)
+		notify.Notify.SendNotifyEmail(u.Contacts.Email, link)
 	} else if !du.Verified {
-		notify.Notify.SendTelegram(u.Contacts.Email, os.Getenv("URL")+"/auth/user/verify?token="+du.Contacts.Email)
+		notify.Notify.SendNotifyTelegram(u.Contacts.Email, link)
+		notify.Notify.SendNotifyEmail(u.Contacts.Email, link)
 	}
 
 	c.JSON(u)
