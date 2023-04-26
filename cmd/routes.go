@@ -109,7 +109,7 @@ func setupRoutes(app *fiber.App) {
 	answer.Post("/delete/:ID?", repositories.DeleteAnswer)
 
 	// auth
-	auth := app.Group("/auth")
+	auth := api.Group("/auth")
 	auth.Get("/:provider", services.Login)
 	auth.Get("/:provider/callback", services.Callback)
 	auth.Get("/logout/:provider", services.Logout)
