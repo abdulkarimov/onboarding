@@ -8,6 +8,7 @@ import (
 	"github.com/abdulkarimov/onboarding/repositories"
 	"github.com/gofiber/fiber/v2"
 	gf "github.com/shareed2k/goth_fiber"
+	"net/http"
 	"os"
 )
 
@@ -41,7 +42,7 @@ func Callback(c *fiber.Ctx) error {
 		notify.Notify.SendNotifyEmail(u.Contacts.Email, link)
 	}
 
-	c.JSON(u)
+	c.Status(http.StatusOK).Redirect("http://localhost:8080/survey")
 	return nil
 }
 

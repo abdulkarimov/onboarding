@@ -1,8 +1,9 @@
 package database
 
 import (
+	"fmt"
 	"github.com/abdulkarimov/onboarding/models"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"log"
@@ -22,8 +23,18 @@ func ConnectDb() {
 	//	os.Getenv("DB_PASSWORD"),
 	//	os.Getenv("DB_NAME"),
 	//)
+	//
+	//db, err := gorm.Open(sqlite.Open("Users.db"), &gorm.Config{
+	//	Logger: logger.Default.LogMode(logger.Info),
+	//})
+	dsn := fmt.Sprintf(
+		"host=db user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=Asia/Shanghai",
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_NAME"),
+	)
 
-	db, err := gorm.Open(sqlite.Open("Users.db"), &gorm.Config{
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 
