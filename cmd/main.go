@@ -5,11 +5,16 @@ import (
 	notify "github.com/abdulkarimov/onboarding/pkg/notification"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/session"
+	"github.com/gofiber/fiber/v2/utils"
+	"github.com/gofiber/storage/sqlite3"
 	"github.com/joho/godotenv"
 	"github.com/markbates/goth"
 	"github.com/markbates/goth/providers/google"
 	"github.com/markbates/goth/providers/yandex"
+	gf "github.com/shareed2k/goth_fiber"
 	"os"
+	"time"
 )
 
 func main() {
@@ -28,6 +33,17 @@ func main() {
 			os.Getenv("YANDEX_OAUTH_CALLBACK_URL"),
 		),
 	)
+	gf.SessionStore = session.New(session.Config{
+		Expiration:     720 * time.Hour,
+		Storage:        sqlite3.New(),
+		KeyLookup:      "cookie:_auth_sesion",
+		CookieDomain:   "127.0.0.1",
+		CookieSecure:   os.Getenv("ENVIRONMENT") == "production",
+		CookieHTTPOnly: true, // Should always be enabled
+		CookieSameSite: "Lax",
+		KeyGenerator:   utils.UUIDv4,
+	})
+
 	app := fiber.New()
 
 	setupRoutes(app)

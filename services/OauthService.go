@@ -1,6 +1,7 @@
 package services
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/abdulkarimov/onboarding/database"
 	"github.com/abdulkarimov/onboarding/models"
@@ -8,6 +9,7 @@ import (
 	"github.com/abdulkarimov/onboarding/repositories"
 	"github.com/gofiber/fiber/v2"
 	gf "github.com/shareed2k/goth_fiber"
+	"log"
 	"net/http"
 	"os"
 )
@@ -42,7 +44,12 @@ func Callback(c *fiber.Ctx) error {
 		notify.Notify.SendNotifyEmail(u.Contacts.Email, link)
 	}
 
-	c.Status(http.StatusOK).Redirect("http://localhost:8080/survey")
+	info, err := json.Marshal(user)
+	if err != nil {
+		log.Print(err)
+	}
+	gf.StoreInSession("auth", string(info), c)
+	c.Status(http.StatusOK).Redirect(os.Getenv("URL") + "\\survey")
 	return nil
 }
 
@@ -64,5 +71,17 @@ func Verify(c *fiber.Ctx) error {
 	repositories.UpdateColumnUser("Verified", "true", u.ID)
 
 	c.JSON(map[int]string{1: uemail, 2: u.Contacts.Email})
+	return nil
+}
+
+func GetSessionUser(c *fiber.Ctx) error {
+	i, err := gf.GetFromSession("auth", c)
+	if err != nil {
+		log.Print(err)
+	}
+
+	var info map[string]interface{}
+	json.Unmarshal([]byte(i), &info)
+	c.Status(http.StatusOK).JSON(info)
 	return nil
 }
