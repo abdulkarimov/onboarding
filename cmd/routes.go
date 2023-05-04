@@ -114,4 +114,8 @@ func setupRoutes(app *fiber.App) {
 	auth.Get("/:provider/callback", services.Callback)
 	auth.Get("/logout/:provider", services.Logout)
 	auth.Get("/user/verify", services.Verify)
+
+	// img
+	img := app.Group("/img")
+	img.Post("/upload", repositories.UploadImage)
 }

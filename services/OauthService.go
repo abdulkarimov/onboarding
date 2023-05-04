@@ -2,14 +2,15 @@ package services
 
 import (
 	"fmt"
+	"net/http"
+	"os"
+
 	"github.com/abdulkarimov/onboarding/database"
 	"github.com/abdulkarimov/onboarding/models"
-	notify "github.com/abdulkarimov/onboarding/pkg/notification"
+	notify "github.com/abdulkarimov/onboarding/notification"
 	"github.com/abdulkarimov/onboarding/repositories"
 	"github.com/gofiber/fiber/v2"
 	gf "github.com/shareed2k/goth_fiber"
-	"net/http"
-	"os"
 )
 
 const state = "randomstate"

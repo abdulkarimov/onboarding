@@ -1,15 +1,16 @@
 package main
 
 import (
+	"os"
+
 	"github.com/abdulkarimov/onboarding/database"
-	notify "github.com/abdulkarimov/onboarding/pkg/notification"
+	notify "github.com/abdulkarimov/onboarding/notification"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"github.com/markbates/goth"
 	"github.com/markbates/goth/providers/google"
 	"github.com/markbates/goth/providers/yandex"
-	"os"
 )
 
 func main() {
@@ -30,8 +31,6 @@ func main() {
 	)
 	app := fiber.New()
 
-	setupRoutes(app)
-
 	app.Use(cors.New(cors.Config{
 		AllowOrigins:     "*",
 		AllowCredentials: true,
@@ -39,5 +38,6 @@ func main() {
 		AllowMethods:     "GET, POST, HEAD, PUT, DELETE, PATCH, OPTIONS",
 	}))
 
+	setupRoutes(app)
 	app.Listen(":3000")
 }
