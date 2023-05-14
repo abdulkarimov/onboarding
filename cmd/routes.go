@@ -116,6 +116,9 @@ func setupRoutes(app *fiber.App) {
 	auth.Get("/user/verify", services.Verify)
 
 	// img
-	img := app.Group("/img")
+	img := api.Group("/img")
 	img.Post("/upload", repositories.UploadImage)
+	img.Post("/:imageName", repositories.DeleteImage)
+	app.Static("/images", "./images")
+
 }

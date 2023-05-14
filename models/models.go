@@ -31,6 +31,14 @@ type User struct {
 	Verified     bool    `json:"verified"`
 }
 
+type Article struct {
+}
+
+type ArticleList struct {
+	Items      []*Article
+	NextPageId int `json:"next_page_id,omitempty" example:"10"`
+}
+
 type Project struct {
 	gorm.Model
 	Name        string `json:"name"`

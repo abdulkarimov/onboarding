@@ -3,6 +3,8 @@ package repositories
 import (
 	"fmt"
 	"log"
+	"os"
+	"path"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -13,7 +15,7 @@ func UploadImage(c *fiber.Ctx) error {
 	file, err := c.FormFile("image")
 	uniqueId := uuid.New()
 	filename := strings.Replace(uniqueId.String(), "-", "", -1)
-	fileExt := strings.Split(file.Filename, ".")[1]
+	fileExt := path.Ext(filename)
 	image := fmt.Sprintf("%s.%s", filename, fileExt)
 	err = c.SaveFile(file, fmt.Sprintf("./images/%s", image))
 
@@ -32,4 +34,16 @@ func UploadImage(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(fiber.Map{"status": 201, "message": "Image uploaded successfully", "data": data})
+}
+
+func DeleteImage(c *fiber.Ctx) error {
+	imageName := c.Params("imageName")
+
+	err := os.Remove(fmt.Sprintf("./images/%s", imageName))
+	if err != nil {
+		log.Println(err)
+		return c.JSON(fiber.Map{"status": 500, "message": "Server Error", "data": nil})
+	}
+
+	return c.JSON(fiber.Map{"status": 201, "message": "Image deleted successfully", "data": nil})
 }

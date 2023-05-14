@@ -1,11 +1,12 @@
 package repositories
 
 import (
+	"log"
+
 	"github.com/abdulkarimov/onboarding/database"
 	"github.com/abdulkarimov/onboarding/models"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm/clause"
-	"log"
 )
 
 func GetUsers(c *fiber.Ctx) error {
@@ -72,14 +73,14 @@ func DeleteUser(c *fiber.Ctx) error {
 	return c.SendStatus(204)
 }
 
-func FindPreloadUser(preload string, query string) models.User {
-	user := models.User{}
-	database.DB.Db.Joins(preload).First(&user, query)
-	return user
-}
-
 func UpdateColumnUser(cname string, value string, id uint) {
 	var u models.User
 	database.DB.Db.Find(&u, "id = ?", id).Update(cname, value)
 	log.Println(cname, value, id)
+}
+
+func FindPreloadUser(preload string, query string) models.User {
+	user := models.User{}
+	database.DB.Db.Joins(preload).First(&user, query)
+	return user
 }
