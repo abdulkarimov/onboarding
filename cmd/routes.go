@@ -121,4 +121,8 @@ func setupRoutes(app *fiber.App) {
 	img.Post("/:imageName", repositories.DeleteImage)
 	app.Static("/images", "./images")
 
+	//page
+	page := api.Group("/pagination")
+	page.Get("/getPage/:page", repositories.GetPaginationData)
+
 }

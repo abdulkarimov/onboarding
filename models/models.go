@@ -31,14 +31,6 @@ type User struct {
 	Verified     bool    `json:"verified"`
 }
 
-type Article struct {
-}
-
-type ArticleList struct {
-	Items      []*Article
-	NextPageId int `json:"next_page_id,omitempty" example:"10"`
-}
-
 type Project struct {
 	gorm.Model
 	Name        string `json:"name"`
@@ -88,6 +80,7 @@ type Contacts struct {
 	HomePhone string `json:"homePhone"`
 	WorkPhone string `json:"workPhone"`
 	Email     string `json:"email"`
+	Telegram  string `json:"telegram"`
 }
 
 type Question struct {
@@ -143,4 +136,12 @@ type Answer struct {
 type QuestionAnswer struct {
 	AnswerId   uint64 `json:"answerId"`
 	QuestionId uint64 `json:"questionId"`
+}
+
+type PaginationData struct {
+	NextPage     int `json:"nextPage"`
+	PreviousPage int `json:"previousPage"`
+	CurrentPage  int `json:"currentPage"`
+	FourAfter    int `json:"fourAfter"`
+	FourBefore   int `json:"fourBefore"`
 }
