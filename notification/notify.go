@@ -32,7 +32,7 @@ func New() {
 }
 
 func (t AppNotify) SendNotifyTelegram(email string, url string) {
-	msg := tgbotapi.NewMessage(739646468, "Новый пользователь ожидает регистрацию!\n "+email+
+	msg := tgbotapi.NewMessage(861921150, "Новый пользователь ожидает регистрацию!\n "+email+
 		"\n"+url)
 	t.bot.Send(msg)
 }
